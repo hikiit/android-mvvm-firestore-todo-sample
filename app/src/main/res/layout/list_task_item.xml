@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="task"
+            type="com.example.android_mvvm_firestore_todo.data.Task" />
+
+        <variable
+            name="viewModel"
+            type="com.example.android_mvvm_firestore_todo.ui.viewmodel.TaskListViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@{task.isDone}"
+            android:onCheckedChanged="@{(switch, checked) -> viewModel.onCheckedChanged(task, checked)}" />
+
+        <TextView
+            style="@style/TaskTitleTextView"
+            android:layout_gravity="center"
+            android:text="@{String.valueOf(task.title)}" />
+    </LinearLayout>
+</layout>
