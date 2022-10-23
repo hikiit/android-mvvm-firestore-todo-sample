@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android_mvvm_firestore_todo">
+    package="net.hiknot.android_mvvm_firestore_todo">
 
     <application
         android:name=".MyApplication"

@@ -5,11 +5,11 @@
 
         <variable
             name="task"
-            type="com.example.android_mvvm_firestore_todo.data.Task" />
+            type="net.hiknot.android_mvvm_firestore_todo.data.Task" />
 
         <variable
             name="viewModel"
-            type="com.example.android_mvvm_firestore_todo.ui.viewmodel.TaskListViewModel" />
+            type="net.hiknot.android_mvvm_firestore_todo.ui.viewmodel.TaskListViewModel" />
     </data>
 
     <LinearLayout
