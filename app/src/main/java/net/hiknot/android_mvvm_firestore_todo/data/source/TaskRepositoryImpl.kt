@@ -46,22 +46,23 @@ class TaskRepositoryImpl @Inject constructor(
 
     override fun getTasks(): Flow<List<Task>> = callbackFlow {
 
-        val register = tasksCollectionPath.addSnapshotListener { snapshot, error ->
-            if (error != null) {
-                Log.e(TAG, "Listen failed.", error)
-                close()
-                return@addSnapshotListener
-            }
+        val register =
+            tasksCollectionPath.orderBy("createAt").addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Log.e(TAG, "Listen failed.", error)
+                    close()
+                    return@addSnapshotListener
+                }
 
-            if (snapshot != null && snapshot.documents.isNotEmpty()) {
-                val tasks = snapshot.toObjects(Task::class.java)
-                Log.d(TAG, "TaskStream: $tasks")
-                trySend(tasks)
-            } else {
-                Log.d(TAG, "TaskStream is null")
-                trySend(listOf())
+                if (snapshot != null && snapshot.documents.isNotEmpty()) {
+                    val tasks = snapshot.toObjects(Task::class.java)
+                    Log.d(TAG, "TaskStream: $tasks")
+                    trySend(tasks)
+                } else {
+                    Log.d(TAG, "TaskStream is null")
+                    trySend(listOf())
+                }
             }
-        }
 
         awaitClose { register.remove() }
     }
