@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.hiknot.android_mvvm_firestore_todo.databinding.FragmentAddTaskBinding
@@ -49,7 +50,7 @@ class AddTaskFragment : Fragment() {
         viewModel.replaceEvent.collect {
             when (it) {
                 AddTaskViewModel.ReplacePage.TaskList -> {
-                    parentFragmentManager.popBackStack()
+                    findNavController().popBackStack()
                 }
             }
         }

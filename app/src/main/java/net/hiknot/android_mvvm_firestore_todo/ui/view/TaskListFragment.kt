@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import com.google.android.material.snackbar.Snackbar
@@ -71,11 +72,7 @@ class TaskListFragment : Fragment() {
         viewModel.replaceEvent.collect {
             when (it) {
                 TaskListViewModel.ReplacePage.AddTask -> {
-                    parentFragmentManager
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.main_content, AddTaskFragment())
-                        .commit()
+                    findNavController().navigate(R.id.action_taskListFragment_to_addTaskFragment)
                 }
             }
         }

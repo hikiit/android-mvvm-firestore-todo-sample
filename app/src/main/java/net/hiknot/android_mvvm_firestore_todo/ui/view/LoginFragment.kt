@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.hiknot.android_mvvm_firestore_todo.R
@@ -46,10 +47,7 @@ class LoginFragment : Fragment() {
         viewModel.replaceEvent.collect {
             when (it) {
                 LoginViewModel.ReplacePage.TaskList -> {
-                    parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_content, TaskListFragment())
-                        .commit()
+                    findNavController().navigate(R.id.action_loginFragment_to_taskListFragment)
                 }
             }
         }
