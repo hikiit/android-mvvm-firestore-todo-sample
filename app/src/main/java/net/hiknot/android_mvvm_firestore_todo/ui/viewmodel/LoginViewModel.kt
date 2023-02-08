@@ -21,6 +21,7 @@ class LoginViewModel @Inject constructor(
     private val _replaceEvent = MutableSharedFlow<ReplacePage>()
     val replaceEvent = _replaceEvent.asSharedFlow()
 
+    // 匿名ログインする
     fun signInGuest() = viewModelScope.launch {
         firebaseProfile.signInAnonymously()
         _replaceEvent.emit(ReplacePage.TaskList)

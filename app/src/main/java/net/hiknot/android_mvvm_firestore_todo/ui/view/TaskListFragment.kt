@@ -78,6 +78,7 @@ class TaskListFragment : Fragment() {
         }
     }
 
+    // アイテムスワイプで削除する
     private fun setItemTouchHelper() {
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.ACTION_STATE_IDLE,
