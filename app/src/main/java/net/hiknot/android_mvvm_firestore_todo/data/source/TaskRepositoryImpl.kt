@@ -36,12 +36,12 @@ class TaskRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun removeTask(documentId: String) {
-        tasksCollectionPath.document(documentId).delete()
+    override fun removeTask(id: String) {
+        tasksCollectionPath.document(id).delete()
     }
 
-    override suspend fun getTask(documentId: String): Task? {
-        return tasksCollectionPath.document(documentId).get().await().toObject(Task::class.java)
+    override suspend fun getTask(id: String): Task? {
+        return tasksCollectionPath.document(id).get().await().toObject(Task::class.java)
     }
 
     override fun getTasks(): Flow<List<Task>> = callbackFlow {
