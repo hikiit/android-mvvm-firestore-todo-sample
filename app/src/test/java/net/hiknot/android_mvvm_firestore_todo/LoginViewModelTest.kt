@@ -43,3 +43,4 @@ class LoginViewModelTest {
         Truth.assertThat(page.getContentIfNotHandled()).isEqualTo(Page.TaskList)
     }
 }
+
