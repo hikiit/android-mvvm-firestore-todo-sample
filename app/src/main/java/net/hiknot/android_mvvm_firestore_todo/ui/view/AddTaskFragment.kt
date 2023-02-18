@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.hiknot.android_mvvm_firestore_todo.databinding.FragmentAddTaskBinding
+import net.hiknot.android_mvvm_firestore_todo.ui.entity.Page
 import net.hiknot.android_mvvm_firestore_todo.ui.viewmodel.AddTaskViewModel
 
 @AndroidEntryPoint
@@ -50,8 +51,12 @@ class AddTaskFragment : Fragment() {
         viewModel.replaceEvent.collect { event ->
             event.getContentIfNotHandled()?.let {
                 when (it) {
-                    AddTaskViewModel.ReplacePage.TaskList -> {
+                    Page.TaskList -> {
                         findNavController().popBackStack()
+                    }
+
+                    else -> {
+                        // Do Nothing
                     }
                 }
             }

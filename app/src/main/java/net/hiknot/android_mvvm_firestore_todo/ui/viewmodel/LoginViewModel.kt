@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import net.hiknot.android_mvvm_firestore_todo.data.source.FirebaseProfileService
+import net.hiknot.android_mvvm_firestore_todo.ui.entity.Page
 import net.hiknot.android_mvvm_firestore_todo.util.Event
 import javax.inject.Inject
 
@@ -16,11 +17,7 @@ class LoginViewModel @Inject constructor(
     private val firebaseProfile: FirebaseProfileService
 ) : ViewModel() {
 
-    enum class ReplacePage {
-        TaskList,
-    }
-
-    private val _replaceEvent = MutableSharedFlow<Event<ReplacePage>>(
+    private val _replaceEvent = MutableSharedFlow<Event<Page>>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
@@ -29,6 +26,6 @@ class LoginViewModel @Inject constructor(
     // 匿名ログインする
     fun signInGuest() = viewModelScope.launch {
         firebaseProfile.signInAnonymously()
-        _replaceEvent.emit(Event(ReplacePage.TaskList))
+        _replaceEvent.emit(Event(Page.TaskList))
     }
 }

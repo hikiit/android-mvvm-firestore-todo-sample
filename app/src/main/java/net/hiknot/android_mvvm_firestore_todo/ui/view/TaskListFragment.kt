@@ -18,6 +18,7 @@ import net.hiknot.android_mvvm_firestore_todo.R
 import net.hiknot.android_mvvm_firestore_todo.data.Task
 import net.hiknot.android_mvvm_firestore_todo.databinding.FragmentTaskListBinding
 import net.hiknot.android_mvvm_firestore_todo.databinding.ListTaskItemBinding
+import net.hiknot.android_mvvm_firestore_todo.ui.entity.Page
 import net.hiknot.android_mvvm_firestore_todo.ui.viewmodel.TaskListViewModel
 
 @AndroidEntryPoint
@@ -72,8 +73,12 @@ class TaskListFragment : Fragment() {
         viewModel.replaceEvent.collect { event ->
             event.getContentIfNotHandled()?.let {
                 when (it) {
-                    TaskListViewModel.ReplacePage.AddTask -> {
+                    Page.AddTask -> {
                         findNavController().navigate(R.id.action_taskListFragment_to_addTaskFragment)
+                    }
+
+                    else -> {
+                        // Do Nothing
                     }
                 }
             }

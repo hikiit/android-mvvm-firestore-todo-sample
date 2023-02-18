@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import net.hiknot.android_mvvm_firestore_todo.data.Task
 import net.hiknot.android_mvvm_firestore_todo.data.source.TaskRepository
+import net.hiknot.android_mvvm_firestore_todo.ui.entity.Page
 import net.hiknot.android_mvvm_firestore_todo.util.Event
 import javax.inject.Inject
 
@@ -19,11 +20,7 @@ class AddTaskViewModel @Inject constructor(
     private val taskRepository: TaskRepository
 ) : ViewModel() {
 
-    enum class ReplacePage {
-        TaskList,
-    }
-
-    private val _replaceEvent = MutableSharedFlow<Event<ReplacePage>>(
+    private val _replaceEvent = MutableSharedFlow<Event<Page>>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
@@ -44,6 +41,6 @@ class AddTaskViewModel @Inject constructor(
     fun onClickAddButton() = viewModelScope.launch {
         val newTask = Task(title = taskTitle.value!!, isDone = false)
         taskRepository.addTask(newTask)
-        _replaceEvent.emit(Event(ReplacePage.TaskList))
+        _replaceEvent.emit(Event(Page.TaskList))
     }
 }

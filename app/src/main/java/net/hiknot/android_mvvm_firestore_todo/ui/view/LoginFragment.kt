@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.hiknot.android_mvvm_firestore_todo.R
 import net.hiknot.android_mvvm_firestore_todo.databinding.FragmentLoginBinding
+import net.hiknot.android_mvvm_firestore_todo.ui.entity.Page
 import net.hiknot.android_mvvm_firestore_todo.ui.viewmodel.LoginViewModel
 
 @AndroidEntryPoint
@@ -47,8 +48,12 @@ class LoginFragment : Fragment() {
         viewModel.replaceEvent.collect { event ->
             event.getContentIfNotHandled()?.let {
                 when (it) {
-                    LoginViewModel.ReplacePage.TaskList -> {
+                    Page.TaskList -> {
                         findNavController().navigate(R.id.action_loginFragment_to_taskListFragment)
+                    }
+
+                    else -> {
+                        // Do Nothing
                     }
                 }
             }
