@@ -69,10 +69,12 @@ class TaskListFragment : Fragment() {
     }
 
     private fun setReplaceEvent() = lifecycleScope.launch {
-        viewModel.replaceEvent.collect {
-            when (it) {
-                TaskListViewModel.ReplacePage.AddTask -> {
-                    findNavController().navigate(R.id.action_taskListFragment_to_addTaskFragment)
+        viewModel.replaceEvent.collect { event ->
+            event.getContentIfNotHandled()?.let {
+                when (it) {
+                    TaskListViewModel.ReplacePage.AddTask -> {
+                        findNavController().navigate(R.id.action_taskListFragment_to_addTaskFragment)
+                    }
                 }
             }
         }

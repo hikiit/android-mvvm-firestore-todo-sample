@@ -47,10 +47,12 @@ class AddTaskFragment : Fragment() {
     }
 
     private fun setReplaceEvent() = lifecycleScope.launch {
-        viewModel.replaceEvent.collect {
-            when (it) {
-                AddTaskViewModel.ReplacePage.TaskList -> {
-                    findNavController().popBackStack()
+        viewModel.replaceEvent.collect { event ->
+            event.getContentIfNotHandled()?.let {
+                when (it) {
+                    AddTaskViewModel.ReplacePage.TaskList -> {
+                        findNavController().popBackStack()
+                    }
                 }
             }
         }

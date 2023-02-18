@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import net.hiknot.android_mvvm_firestore_todo.data.Task
 import net.hiknot.android_mvvm_firestore_todo.data.source.TaskRepository
+import net.hiknot.android_mvvm_firestore_todo.util.Event
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,7 +23,10 @@ class TaskListViewModel @Inject constructor(
         AddTask,
     }
 
-    private val _replaceEvent = MutableSharedFlow<ReplacePage>()
+    private val _replaceEvent = MutableSharedFlow<Event<ReplacePage>>(
+        replay = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
+    )
     val replaceEvent = _replaceEvent.asSharedFlow()
 
     private val _taskList = MutableLiveData<List<Task>>(listOf())
@@ -43,7 +48,7 @@ class TaskListViewModel @Inject constructor(
     }
 
     fun onClickAddButton() = viewModelScope.launch {
-        _replaceEvent.emit(ReplacePage.AddTask)
+        _replaceEvent.emit(Event(ReplacePage.AddTask))
     }
 
     private fun getTasks() = viewModelScope.launch {

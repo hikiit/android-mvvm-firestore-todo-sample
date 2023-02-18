@@ -44,10 +44,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun setReplaceEvent() = lifecycleScope.launch {
-        viewModel.replaceEvent.collect {
-            when (it) {
-                LoginViewModel.ReplacePage.TaskList -> {
-                    findNavController().navigate(R.id.action_loginFragment_to_taskListFragment)
+        viewModel.replaceEvent.collect { event ->
+            event.getContentIfNotHandled()?.let {
+                when (it) {
+                    LoginViewModel.ReplacePage.TaskList -> {
+                        findNavController().navigate(R.id.action_loginFragment_to_taskListFragment)
+                    }
                 }
             }
         }
