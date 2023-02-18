@@ -12,9 +12,9 @@ import kotlinx.coroutines.test.setMain
 import net.hiknot.android_mvvm_firestore_todo.data.source.FirebaseProfileService
 import net.hiknot.android_mvvm_firestore_todo.ui.entity.Page
 import net.hiknot.android_mvvm_firestore_todo.ui.viewmodel.LoginViewModel
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest {
@@ -23,7 +23,7 @@ class LoginViewModelTest {
     lateinit var profileMock: FirebaseProfileService
     lateinit var loginViewModel: LoginViewModel
 
-    @Before
+    @BeforeEach
     fun setup() {
         Dispatchers.setMain(dispatcher)
 
@@ -31,7 +31,7 @@ class LoginViewModelTest {
         loginViewModel = LoginViewModel(profileMock)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         Dispatchers.resetMain()
     }
